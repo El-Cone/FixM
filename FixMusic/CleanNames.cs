@@ -39,9 +39,15 @@ namespace FixMusic
         static private void RemoveParentNameFromChilds(string path)
         {
             string topFolder = Path.GetFileName(path);
+            string cleanTopFolder = Regex.Replace(topFolder, @"\s*[\(\[].*[\]\)]\s*", "");
             string pattern = string.Format(PatternTemplate, Regex.Escape(topFolder));
 
             RegexFix.RecursiveRegexReplaceFSEntities(pattern, " ", path);
+            if (topFolder != cleanTopFolder)
+            {
+                pattern = string.Format(PatternTemplate, Regex.Escape(cleanTopFolder));
+                RegexFix.RecursiveRegexReplaceFSEntities(pattern, " ", path);
+            }
 
             string[] folders = Directory.GetDirectories(path);
             foreach (string folder in folders)

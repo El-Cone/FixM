@@ -61,7 +61,7 @@ namespace FixMusic
         }
         static void Batch()
         {
-            Files.CMDExecute("", "rem", "txt", "nfo", "log", "accurip", "dat", "exe", "inf", "html", "htm", "swf", "x32", "x16");
+            Files.CMDExecute("", "rem", "txt", "nfo", "log", "accurip", "dat", "exe", "inf", "html", "htm", "swf", "x32", "x16", "rtf");
             Files.CMDExecute("", "move", "cue", "m3u");
             GroupCD.CMDExecute(null);
             removed = 0;

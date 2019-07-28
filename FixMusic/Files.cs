@@ -42,6 +42,7 @@ namespace FixMusic
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Crashed. {Counter} files successfully processed.");
+                throw;
             }
             finally
             {
@@ -54,10 +55,19 @@ namespace FixMusic
                 RemoveFilesWithExtentions(s, extentions);
             foreach (var f in Directory.GetFiles(path))
                 foreach (var e in extentions)
-                    if (Path.GetExtension(f).Equals($".{e}", StringComparison.InvariantCultureIgnoreCase))
+                    try
                     {
-                        File.Delete(f);
-                        Counter++;
+                        if (Path.GetExtension(f).Equals($".{e}", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            File.Delete(f);
+                            Counter++;
+                        }
+                    }
+                    catch
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Error deleting file: {f}");
+                        throw;
                     }
         }
         public static void MoveFilesWithExtentions(string path, string[] extentions)
