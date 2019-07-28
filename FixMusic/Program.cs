@@ -15,8 +15,7 @@ namespace FixMusic
             try
             {
 #if DEBUG
-                //Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg";
-                Environment.CurrentDirectory = @"M:\Music\Artists\Herman van Veen\Herman van Veen 100 Greatest hits\disc1";
+                Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg";
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"DEBUG mode, current directory changed to:");
                 Console.WriteLine(Environment.CurrentDirectory);
