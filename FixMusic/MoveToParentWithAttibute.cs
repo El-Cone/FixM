@@ -31,9 +31,9 @@ the prefix {attribute} and move it to the parent?
             if (Console.ReadKey(true).Key != ConsoleKey.Y)
                 return;
             foreach (var f in Directory.GetFiles(path))
-                File.Move(f, Path.Combine(parent, $"{folder} {Path.GetFileName(f)}"));
+                File.Move(f, Path.Combine(parent, $"{attribute} {Path.GetFileName(f)}"));
             foreach (var d in Directory.GetDirectories(path))
-                Directory.Move(d, Path.Combine(parent, $"{folder} {Path.GetFileName(d)}"));
+                Directory.Move(d, Path.Combine(parent, $"{attribute} {Path.GetFileName(d)}"));
             Directory.Delete(path);
         }
 
