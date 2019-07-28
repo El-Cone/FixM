@@ -15,7 +15,8 @@ namespace FixMusic
             try
             {
 #if DEBUG
-                Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg";
+                //Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg";
+                Environment.CurrentDirectory = @"M:\Music\Artists\Herman van Veen\Herman van Veen 100 Greatest hits\disc1";
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"DEBUG mode, current directory changed to:");
                 Console.WriteLine(Environment.CurrentDirectory);
@@ -27,7 +28,7 @@ namespace FixMusic
                     case "cleannames": CleanNames.CMDExecute(args); break;
                     case "files": Files.CMDExecute(args); break;
                     case "groupcd": GroupCD.CMDExecute(args); break;
-                    case "movetoparentwithattribute": MoveToParentWithAttibute.CMDExecute(args); break;
+                    case "movetoparentwithattribute": MoveToParentWithAttribute.CMDExecute(args); break;
                     case "regex": RegexFix.CMDExecute(args); break;
                     case "help": case "-h": case "?": ShowHelp(args); break;
                     default:

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FixMusic
 {
-    static class MoveToParentWithAttibute
+    static class MoveToParentWithAttribute
     {
         public static void CMDExecute(string[] args)
         {
