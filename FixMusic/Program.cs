@@ -52,7 +52,9 @@ namespace FixMusic
             {
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Gray;
+#if DEBUG
                 Console.ReadKey();
+#endif
             }
         }
         static void ShowHelp(string[] args)
