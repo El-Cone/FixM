@@ -13,7 +13,7 @@ namespace FixMusic
         {
             string path = Path.Combine(Environment.CurrentDirectory, args[1]);
             string attribute;
-            string folder = Path.GetFileName(path)
+            string folder = Path.GetFileName(path);
             if (args.Length > 2)
                 attribute = $"[{args[2]}]";
             else
