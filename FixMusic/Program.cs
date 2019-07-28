@@ -10,13 +10,12 @@ namespace FixMusic
 {
     class Program
     {
-        static int Renames;
         static void Main(string[] args)
         {
             try
             {
 #if DEBUG
-                Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg\1974 From The Mars Hotel";
+                Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg";
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"DEBUG mode, current directory changed to:");
                 Console.WriteLine(Environment.CurrentDirectory);
@@ -24,17 +23,12 @@ namespace FixMusic
 #endif
                 switch (args[0].ToLower())
                 {
-                    case "regex":
-                        RegexFix.CMDExecute(args);
-                        break;
-                    case "cleannames":
-                        CleanNames.CMDExecute(args);
-                        break;
-                    case "help":
-                    case "-h":
-                    case "?":
-                        ShowHelp(args);
-                        break;
+                    case "batch": Batch(); break;
+                    case "cleannames": CleanNames.CMDExecute(args); break;
+                    case "files": Files.CMDExecute(args); break;
+                    case "groupcd": GroupCD.CMDExecute(args); break;
+                    case "regex": RegexFix.CMDExecute(args); break;
+                    case "help": case "-h": case "?": ShowHelp(args); break;
                     default:
                         Console.WriteLine("unknown command, type help for help.");
                         break;
@@ -61,6 +55,14 @@ namespace FixMusic
         {
             Console.WriteLine("regex pattern replace");
             Console.WriteLine("cleannames");
+            Console.WriteLine("groupCD");
+        }
+        static void Batch()
+        {
+            CleanNames.CMDExecute(null);
+            GroupCD.CMDExecute(null);
+            Files.CMDExecute("", "rem", "txt", "nfo", "log", "accurip", "dat");
+            Files.CMDExecute("", "move", "cue", "m3u");
         }
     }
 }

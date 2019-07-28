@@ -42,7 +42,7 @@ all files and subfolders? (y/n)");
             }
             catch
             {
-                Console.ForegroundColor = ConsoleColor.Red; 
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Crashed. {fix.Renames} Renames successfull.");
                 throw;
             }
@@ -114,7 +114,8 @@ all files and subfolders? (y/n)");
                 time = timer.Elapsed.ToString();
             else
                 time = timer.ElapsedMilliseconds + "ms";
-            Console.WriteLine($"{Renames} Renames done in {time}");
+            if (Renames > 0)
+                Console.WriteLine($"{Renames} Renames done in {time}");
             Console.ForegroundColor = fgColor;
         }
 

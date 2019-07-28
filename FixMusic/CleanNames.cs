@@ -11,15 +11,14 @@ namespace FixMusic
     static class CleanNames
     {
         //(?!\]?!\)\W+|^)grateful dead(?!\[?!\(\W+)|(?!\]?!\)\W+)grateful dead(?!\[?!\(\W+|$)
-        const string PatternTemplate = @"(\s*[^])\w])*{0}([^[(\w]\s*)*"; //@"(((\W+|^){0}\W+)|(\W+{0}(\W+|$)))";
+        public const string PatternTemplate = @"(\s*[^])\w])*{0}([^[(\w]\s*)*"; //@"(((\W+|^){0}\W+)|(\W+{0}(\W+|$)))";
         static public void CMDExecute(string[] args)
         {
             string path = Environment.CurrentDirectory;
             WriteConsole("Removing parent names from childs");
             RemoveParentNameFromChilds(path);
-            WriteConsole("Removing empty brackets");
             RemoveEmptyBrackets(path);
-            WriteConsole("Trimming");
+            RenameCDs(path);
             TrimAllNames(path);
         }
 
@@ -50,14 +49,24 @@ namespace FixMusic
 
         static private void RemoveEmptyBrackets(string path)
         {
+            WriteConsole("Removing empty brackets");
             RegexFix.RecursiveRegexReplaceFSEntities(@"\s*[\[\(]\W*[\]\)]\s*", " ", path);
         }
 
         static private void TrimAllNames(string path)
         {
+            WriteConsole("Trimming");
             RegexFix.RecursiveRegexReplaceFSEntities(@"\s+", " ", path); //remove double spaces
             RegexFix.RecursiveRegexReplaceFSEntities(@"^\s+", "", path); //remove leading spaces
             RegexFix.RecursiveRegexReplaceFSEntities(@"\s+$", "", path); //remove trailing spaces
+        }
+
+        static public void RenameCDs(string path)
+        {
+            WriteConsole("Renaming Disc to CD");
+            RegexFix.RecursiveRegexReplaceFSEntities(@"cd\s*(\d)", "CD$1", path);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"disc\s*(\d)", "CD$1", path);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"^D(\d)($|\s[^\\\/]*$)", "CD$1 $2", path);
         }
     }
 }
