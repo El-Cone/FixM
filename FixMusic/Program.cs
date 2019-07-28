@@ -27,7 +27,7 @@ namespace FixMusic
                     case "cleannames": CleanNames.CMDExecute(args); break;
                     case "files": Files.CMDExecute(args); break;
                     case "groupcd": GroupCD.CMDExecute(args); break;
-                    case "movetoparentwithattibute": MoveToParentWithAttibute.CMDExecute(args); break;
+                    case "movetoparentwithattribute": MoveToParentWithAttibute.CMDExecute(args); break;
                     case "regex": RegexFix.CMDExecute(args); break;
                     case "help": case "-h": case "?": ShowHelp(args); break;
                     default:
@@ -57,7 +57,7 @@ namespace FixMusic
             Console.WriteLine("regex pattern replace");
             Console.WriteLine("cleannames");
             Console.WriteLine("groupCD");
-            Console.WriteLine("MoveToParentWithAttibute");
+            Console.WriteLine("MoveToParentWithAttribute");
         }
         static void Batch()
         {
