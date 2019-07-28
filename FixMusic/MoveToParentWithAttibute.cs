@@ -13,10 +13,11 @@ namespace FixMusic
         {
             string path = Path.Combine(Environment.CurrentDirectory, args[1]);
             string attribute;
+            string folder = Path.GetFileName(path)
             if (args.Length > 2)
                 attribute = $"[{args[2]}]";
             else
-                attribute = $"[{Path.GetFileName(path)}]";
+                attribute = $"[{folder}]";
             string parent = Environment.CurrentDirectory;
             ConsoleColor fgColor = Console.ForegroundColor;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -30,9 +31,9 @@ the prefix {attribute} and move it to the parent?
             if (Console.ReadKey(true).Key != ConsoleKey.Y)
                 return;
             foreach (var f in Directory.GetFiles(path))
-                File.Move(f, Path.Combine(parent, $"{attribute} {Path.GetFileName(f)}"));
+                File.Move(f, Path.Combine(parent, $"{folder} {Path.GetFileName(f)}"));
             foreach (var d in Directory.GetDirectories(path))
-                Directory.Move(d, Path.Combine(parent, $"{attribute} {Path.GetFileName(d)}"));
+                Directory.Move(d, Path.Combine(parent, $"{folder} {Path.GetFileName(d)}"));
             Directory.Delete(path);
         }
 

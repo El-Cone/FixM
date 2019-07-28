@@ -14,11 +14,17 @@ namespace FixMusic
         public bool Recursive { get; set; }
         public string Pattern { get; set; }
         public string Replace { get; set; }
+        public RegexOptions RegexOptions = RegexOptions.IgnoreCase;
 
         public RegexFix(string pattern, string replace)
         {
             Pattern = pattern;
             Replace = replace;
+        }
+
+        public RegexFix(string pattern, string replace, RegexOptions regexOptions) : this(pattern, replace)
+        {
+            RegexOptions = regexOptions;
         }
 
         public static void CMDExecute(string[] args)
@@ -69,7 +75,7 @@ all files and subfolders? (y/n)");
             foreach (string file in files)
             {
                 string oldFileName = Path.GetFileName(file);
-                string newFileName = Regex.Replace(oldFileName, Pattern, Replace, RegexOptions.IgnoreCase);
+                string newFileName = Regex.Replace(oldFileName, Pattern, Replace, RegexOptions);
                 string parentPath = file.Substring(0, file.LastIndexOf(oldFileName));
                 if (oldFileName != newFileName && Regex.Match(newFileName, @"\w.*\.\w+").Success)
                 {
@@ -83,9 +89,9 @@ all files and subfolders? (y/n)");
         private void RegexReplaceDirectory(string dir)
         {
             string oldDirName = dir.Split('\\').Last();
-            if (!Regex.Match(oldDirName, Pattern, RegexOptions.IgnoreCase).Success)
+            if (!Regex.Match(oldDirName, Pattern, RegexOptions).Success)
                 return;
-            string newDirName = Regex.Replace(oldDirName, Pattern, Replace, RegexOptions.IgnoreCase);
+            string newDirName = Regex.Replace(oldDirName, Pattern, Replace, RegexOptions);
             string parentPath = dir.Substring(0, dir.LastIndexOf(oldDirName));
             if (oldDirName != newDirName && Regex.Match(newDirName, @"\w").Success)
             {
@@ -93,6 +99,11 @@ all files and subfolders? (y/n)");
                 Directory.Move(dir, Path.Combine(parentPath, newDirName));
                 Renames++;
             }
+        }
+
+        public static void RecursiveRegexReplaceFSEntities(string pattern, string replace, string path, RegexOptions regexOptions)
+        {
+            new RegexFix(pattern, replace, regexOptions).RecursiveRegexReplaceFSEntities(path);
         }
 
         public static void RecursiveRegexReplaceFSEntities(string pattern, string replace, string path)
