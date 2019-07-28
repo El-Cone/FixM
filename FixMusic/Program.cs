@@ -57,7 +57,7 @@ namespace FixMusic
             Console.WriteLine("regex pattern replace");
             Console.WriteLine("cleannames");
             Console.WriteLine("groupCD");
-            Console.WriteLine("MoveToParentWithAttribute");
+            Console.WriteLine("MoveToParentWithAttribute folder");
         }
         static void Batch()
         {
