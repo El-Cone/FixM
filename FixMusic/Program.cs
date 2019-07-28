@@ -16,7 +16,7 @@ namespace FixMusic
             try
             {
 #if DEBUG
-                Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg\Anthem of the Sun [Bonus Tracks]";
+                Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg\1974 From The Mars Hotel";
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"DEBUG mode, current directory changed to:");
                 Console.WriteLine(Environment.CurrentDirectory);
