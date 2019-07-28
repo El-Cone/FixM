@@ -16,15 +16,19 @@ namespace FixMusic
             try
             {
 #if DEBUG
-                Environment.CurrentDirectory = @"D:\";
+                Environment.CurrentDirectory = @"M:\Music\UnprocessedMusic\Grateful Dead\_Bootleg\Anthem of the Sun [Bonus Tracks]";
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"DEBUG mode, current directory changed to:");
                 Console.WriteLine(Environment.CurrentDirectory);
+                Console.ForegroundColor = ConsoleColor.Gray;
 #endif
                 switch (args[0].ToLower())
                 {
                     case "regex":
                         RegexFix.CMDExecute(args);
+                        break;
+                    case "cleannames":
+                        CleanNames.CMDExecute(args);
                         break;
                     case "help":
                     case "-h":
@@ -54,6 +58,7 @@ namespace FixMusic
         static void ShowHelp(string[] args)
         {
             Console.WriteLine("regex pattern replace");
+            Console.WriteLine
         }
     }
 }
