@@ -15,6 +15,12 @@ namespace FixMusic
         {
             try
             {
+#if DEBUG
+                Environment.CurrentDirectory = @"D:\";
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"DEBUG mode, current directory changed to:");
+                Console.WriteLine(Environment.CurrentDirectory);
+#endif
                 switch (args[0].ToLower())
                 {
                     case "regex":

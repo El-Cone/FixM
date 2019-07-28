@@ -23,8 +23,6 @@ namespace FixMusic
 
         public static void CMDExecute(string[] args)
         {
-
-
             //Parse args
             string pattern = args[1];
             string replace = args.Length >= 3 ? args[2] : "";
