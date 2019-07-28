@@ -10,7 +10,7 @@ namespace FixMusic
 {
     class GroupCD
     {
-        const string TopFolderCDPattern = @"(\s*[^])\w])*CD(\d)[^\\\/]*$";
+        const string TopFolderCDPattern = @"(\s*[^])\w])*CD(\d)[^\\\/]*$"; //@"(\s*[^])\w])*CD(\d)$";
         const string SecondFolderCDPattern = @"\\CD(\d)[^\\\/]*$";
         public static void CMDExecute(string[] args)
         {

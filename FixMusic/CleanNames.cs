@@ -17,6 +17,7 @@ namespace FixMusic
             string path = Environment.CurrentDirectory;
             WriteConsole("Removing parent names from childs");
             RemoveParentNameFromChilds(path);
+            ExtractYear(path);
             RemoveEmptyBrackets(path);
             RenameCDs(path);
             TrimAllNames(path);
@@ -64,10 +65,16 @@ namespace FixMusic
         static public void RenameCDs(string path)
         {
             WriteConsole("Renaming Disc to CD");
-            RegexFix.RecursiveRegexReplaceFSEntities(@"^cd(\d)((?=\\W)|$)", "disc$1 ", path, RegexOptions.None);
-            RegexFix.RecursiveRegexReplaceFSEntities(@"cd\s*(\d)((?=\\W)|$)", "CD$1", path);
-            RegexFix.RecursiveRegexReplaceFSEntities(@"disc\s*(\d)((?=\\W)|$)", "CD$1", path);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"^cd(\d)((?=\W)|$)", "disc$1 ", path, RegexOptions.None);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"cd\s*(\d)((?=\W)|$)", "CD$1", path);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"disc\s*(\d)((?=\W)|$)", "CD$1", path);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"\s+[\[\(]\s+(CD\d)\s+[\[\(]\s+", " $1 ", path);
             RegexFix.RecursiveRegexReplaceFSEntities(@"^D(\d)($|\s[^\\\/]*$)", "CD$1 $2", path);
+        }
+
+        static public void ExtractYear(string path)
+        {
+            RegexFix.RecursiveRegexReplaceFSEntities(@"(.+)\s*([12]\d{3})(?!\d)\s*(.*)", "$2 - $1 $3", path);
         }
     }
 }
