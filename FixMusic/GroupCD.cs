@@ -41,7 +41,7 @@ namespace FixMusic
         {
             string[] folders = Directory.GetDirectories(path);
             List<string> childs = folders.Where(x => x.StartsWith(newPath)).OrderBy(x => x).ToList();
-            if (childs.Count != int.Parse( Regex.Match(childs.Last(), TopFolderCDPattern).Groups[2].ToString()))
+            if (!int.TryParse(Regex.Match(childs.Last(), TopFolderCDPattern).Groups[2].ToString(), out int i ) || childs.Count != i)
                 return;
             Directory.CreateDirectory(newPath);
             foreach (string child in childs)
