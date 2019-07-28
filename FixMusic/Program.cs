@@ -61,10 +61,27 @@ namespace FixMusic
         }
         static void Batch()
         {
+            Files.CMDExecute("", "rem", "txt", "nfo", "log", "accurip", "dat", "exe", "inf", "html", "htm", "swf", "x32", "x16");
+            Files.CMDExecute("", "move", "cue", "m3u");
             CleanNames.CMDExecute(null);
             GroupCD.CMDExecute(null);
-            Files.CMDExecute("", "rem", "txt", "nfo", "log", "accurip", "dat");
-            Files.CMDExecute("", "move", "cue", "m3u");
+            removed = 0;
+            Console.WriteLine("Removing empty directories");
+            RemoveEmptyDirectories(Environment.CurrentDirectory);
+            Console.WriteLine($"{removed} Directories removed.");
+        }
+
+        static int removed;
+        private static void RemoveEmptyDirectories(string path)
+        {
+            foreach (var d in Directory.GetDirectories(path))
+                RemoveEmptyDirectories(d);
+            if (Directory.GetFileSystemEntries(path).Length == 0)
+            {
+                Console.WriteLine($"Removed \"{ path}\"");
+                Directory.Delete(path);
+                removed++;
+            }
         }
     }
 }

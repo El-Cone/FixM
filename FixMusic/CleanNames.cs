@@ -64,8 +64,9 @@ namespace FixMusic
         static public void RenameCDs(string path)
         {
             WriteConsole("Renaming Disc to CD");
-            RegexFix.RecursiveRegexReplaceFSEntities(@"cd\s*(\d)", "CD$1", path);
-            RegexFix.RecursiveRegexReplaceFSEntities(@"disc\s*(\d)", "CD$1", path);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"^cd(\d)\W", "disc$1 ", path);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"cd\s*(\d)\W", "CD$1 ", path);
+            RegexFix.RecursiveRegexReplaceFSEntities(@"disc\s*(\d)\W", "CD$1 ", path);
             RegexFix.RecursiveRegexReplaceFSEntities(@"^D(\d)($|\s[^\\\/]*$)", "CD$1 $2", path);
         }
     }

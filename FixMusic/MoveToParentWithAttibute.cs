@@ -11,13 +11,13 @@ namespace FixMusic
     {
         public static void CMDExecute(string[] args)
         {
-            string path = Environment.CurrentDirectory;
+            string path = Path.Combine(Environment.CurrentDirectory, args[1]);
             string attribute;
-            if (args.Length > 1)
-                attribute = $"[args(1)]";
+            if (args.Length > 2)
+                attribute = $"[{args[2]}]";
             else
                 attribute = $"[{Path.GetFileName(path)}]";
-            string parent = path.Substring(0, path.LastIndexOf("\\"));
+            string parent = Environment.CurrentDirectory;
             ConsoleColor fgColor = Console.ForegroundColor;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.Yellow;
