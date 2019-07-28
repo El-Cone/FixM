@@ -15,9 +15,15 @@ namespace FixMusic
         public static void CMDExecute(string[] args)
         {
             string path = Environment.CurrentDirectory;
-            CleanNames.RenameCDs(path);
+            CleanNames.CMDExecute(null);
+        }
+
+        private static void GroupCDs(string path)
+        {
             FindCDsInTopLayer(path);
             FindCDsInSecondLayer(path);
+            foreach (string f in Directory.GetDirectories(path))
+                GroupCDs(f);
         }
 
         private static void FindCDsInTopLayer(string path)

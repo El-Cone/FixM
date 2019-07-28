@@ -63,7 +63,6 @@ namespace FixMusic
         {
             Files.CMDExecute("", "rem", "txt", "nfo", "log", "accurip", "dat", "exe", "inf", "html", "htm", "swf", "x32", "x16");
             Files.CMDExecute("", "move", "cue", "m3u");
-            CleanNames.CMDExecute(null);
             GroupCD.CMDExecute(null);
             removed = 0;
             Console.WriteLine("Removing empty directories");
