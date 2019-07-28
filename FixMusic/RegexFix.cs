@@ -36,25 +36,30 @@ all files and subfolders? (y/n)");
 
             // do work
             RegexFix fix = new RegexFix(pattern, replace);
-            var timer = new System.Diagnostics.Stopwatch();
             try
             {
-                timer.Start();
-                Console.ForegroundColor = ConsoleColor.Cyan;
                 fix.RecursiveRegexReplaceFSEntities(path);
-                timer.Stop();
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                string time;
-                if (timer.ElapsedMilliseconds > 15000)
-                    time = timer.Elapsed.ToString();
-                else
-                    time = timer.ElapsedMilliseconds + "ms";
-                Console.WriteLine($"{fix.Renames} Renames done in {time}");
             }
             catch
             {
+                Console.ForegroundColor = ConsoleColor.Red; 
                 Console.WriteLine($"Crashed. {fix.Renames} Renames successfull.");
                 throw;
+            }
+        }
+
+        private static void WriteConsole(string type, string old, string nw)
+        {
+            if (type.Length > 15)
+                type = type.Substring(0, 15);
+            string lenT = "               ";
+            lenT = lenT.Substring(0, type.Length);
+            if (old.Length < 32)
+                Console.WriteLine($"Renaming {type}: \"{old}\" TO: \"{nw}\"");
+            else
+            {
+                Console.WriteLine($"Renaming {type}: \"{old}\"");
+                Console.WriteLine($"     {lenT}  to: \"{nw}\"");
             }
         }
 
@@ -68,7 +73,7 @@ all files and subfolders? (y/n)");
                 string parentPath = file.Substring(0, file.LastIndexOf(oldFileName));
                 if (oldFileName != newFileName && Regex.Match(newFileName, @"\w.*\.\w+").Success)
                 {
-                    Console.WriteLine($"Renaming file {newFileName} from:({oldFileName})");
+                    WriteConsole("file", oldFileName, newFileName);
                     File.Move(file, Path.Combine(parentPath, newFileName));
                     Renames++;
                 }
@@ -84,7 +89,7 @@ all files and subfolders? (y/n)");
             string parentPath = dir.Substring(0, dir.LastIndexOf(oldDirName));
             if (oldDirName != newDirName && Regex.Match(newDirName, @"\w").Success)
             {
-                Console.WriteLine($"Renaming folder {newDirName} from:({oldDirName})");
+                WriteConsole("directory", oldDirName, newDirName);
                 Directory.Move(dir, Path.Combine(parentPath, newDirName));
                 Renames++;
             }
@@ -97,7 +102,20 @@ all files and subfolders? (y/n)");
 
         public void RecursiveRegexReplaceFSEntities(string path)
         {
+            ConsoleColor fgColor = Console.ForegroundColor;
+            var timer = new System.Diagnostics.Stopwatch();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            timer.Start();
             RecursiveRegexReplaceFSEntities(path, false);
+            timer.Stop();
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            string time;
+            if (timer.ElapsedMilliseconds > 15000)
+                time = timer.Elapsed.ToString();
+            else
+                time = timer.ElapsedMilliseconds + "ms";
+            Console.WriteLine($"{Renames} Renames done in {time}");
+            Console.ForegroundColor = fgColor;
         }
 
         private void RecursiveRegexReplaceFSEntities(string path, bool includingThisOne)
