@@ -21,7 +21,7 @@ namespace FixMusic
                 Console.WriteLine(Environment.CurrentDirectory);
                 Console.ForegroundColor = ConsoleColor.Gray;
 #endif
-                switch (args[0].ToLower())
+                switch (args.Length == 0 ? "?" : args[0].ToLower())
                 {
                     case "batch": Batch(); break;
                     case "cleannames": CleanNames.CMDExecute(args); break;
