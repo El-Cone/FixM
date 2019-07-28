@@ -58,7 +58,7 @@ namespace FixMusic
         static void ShowHelp(string[] args)
         {
             Console.WriteLine("regex pattern replace");
-            Console.WriteLine
+            Console.WriteLine("cleannames");
         }
     }
 }

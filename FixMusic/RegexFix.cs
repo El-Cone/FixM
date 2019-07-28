@@ -66,7 +66,7 @@ all files and subfolders? (y/n)");
                 string oldFileName = Path.GetFileName(file);
                 string newFileName = Regex.Replace(oldFileName, Pattern, Replace, RegexOptions.IgnoreCase);
                 string parentPath = file.Substring(0, file.LastIndexOf(oldFileName));
-                if (oldFileName != newFileName)
+                if (oldFileName != newFileName && Regex.Match(newFileName, @"\w").Success)
                 {
                     Console.WriteLine($"Renaming file {newFileName} from:({oldFileName})");
                     File.Move(file, Path.Combine(parentPath, newFileName));
@@ -83,12 +83,18 @@ all files and subfolders? (y/n)");
                 return;
             string newDirName = Regex.Replace(oldDirName, Pattern, Replace, RegexOptions.IgnoreCase);
             string parentPath = dir.Substring(0, dir.LastIndexOf(oldDirName));
-            if (oldDirName != newDirName)
+            if (oldDirName != newDirName && Regex.Match(newDirName, @"\w").Success)
             {
                 Console.WriteLine($"Renaming folder {newDirName} from:({oldDirName})");
                 Directory.Move(dir, Path.Combine(parentPath, newDirName));
                 Renames++;
             }
+        }
+
+        public static void RecursiveRegexReplaceFSEntities(string pattern, string replace, string path)
+        {
+            var regexFix = new RegexFix(pattern, replace);
+            regexFix.RecursiveRegexReplaceFSEntities(path);
         }
 
         public void RecursiveRegexReplaceFSEntities(string path)
